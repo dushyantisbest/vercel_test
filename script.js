@@ -10,113 +10,107 @@ let scoreDisplay = document.querySelector("#scoreDisplay");
 let restartButton = document.querySelector("#restartButton");
 let startButton = document.querySelector("#startButton");
 
+let running = true;
+let level = 0;
+let sequence = [];
+let checkSequence = [];
+let userTurn = false;
+
+// Define the startGame function in the global scope
+function startGame() {
+  level = 0;
+  sequence = [];
+  finalScoreElement.style.display = "none"; // Hide final score
+  heading.innerHTML = "Level 1";
+  nextLevel();
+}
+
 // Start the game when the button is clicked
 startButton.addEventListener("click", function () {
   startButton.style.display = "none"; // Hide the start button
-  startGame();
+  startGame(); // Call the global startGame function
 });
 
 // Start the game when a key is pressed (for desktop users)
 document.addEventListener("keydown", function () {
   startButton.style.display = "none"; // Hide the start button
-  startGame();
+  startGame(); // Call the global startGame function
 });
 
-// get the key press to start the game
+// Proceed to the next level
+function nextLevel() {
+  level++;
+  heading.innerHTML = "Level " + level;
+  checkSequence = [];
+  userTurn = false;
 
-document.addEventListener("keydown", function () {
-  let running = true;
-  let level = 0;
-  let sequence = [];
-  let checkSequence = [];
-  let userTurn = false;
-
-  // Start the game
-  function startGame() {
-    level = 0;
-    sequence = [];
-    finalScoreElement.style.display = "none"; // Hide final score
-    nextLevel();
-  }
-
-  // Proceed to the next level
-  function nextLevel() {
-    level++;
-    heading.innerHTML = "Level " + level;
-    checkSequence = [];
-    userTurn = false;
-
-    // Generate a new random number and add it to the sequence
-    let randomNumber = Math.floor(Math.random() * 4) + 1;
-    sequence.push(randomNumber);
-
-    // Flash the sequence to the user
-    flashSequence(sequence, () => {
-      userTurn = true;
-    });
-  }
+  // Generate a new random number and add it to the sequence
+  let randomNumber = Math.floor(Math.random() * 4) + 1;
+  sequence.push(randomNumber);
 
   // Flash the sequence to the user
-  function flashSequence(sequence, callback) {
-    let i = 0;
-    function flashNext() {
-      if (i < sequence.length) {
-        boxFlash(sequence[i]);
-        i++;
-        setTimeout(flashNext, 800);
-      } else {
-        callback();
-      }
-    }
-    flashNext();
-  }
+  flashSequence(sequence, () => {
+    userTurn = true;
+  });
+}
 
-  // Handle user clicks
-  function handleClick(number) {
-    if (!userTurn) return;
-
-    boxFlash(number);
-    checkSequence.push(number);
-
-    // Check if the user's input matches the sequence so far
-    if (
-      checkSequence[checkSequence.length - 1] !==
-      sequence[checkSequence.length - 1]
-    ) {
-      gameOver();
-      return;
-    }
-
-    // If the user completes the sequence, go to the next level
-    if (checkSequence.length === sequence.length) {
-      setTimeout(nextLevel, 1000);
+// Flash the sequence to the user
+function flashSequence(sequence, callback) {
+  let i = 0;
+  function flashNext() {
+    if (i < sequence.length) {
+      boxFlash(sequence[i]);
+      i++;
+      setTimeout(flashNext, 800);
+    } else {
+      callback();
     }
   }
+  flashNext();
+}
 
-  // End the game
-  function gameOver() {
-    running = false;
-    heading.innerHTML = "Game Over!";
-    scoreDisplay.innerHTML = level - 1; // Display the score based on levels
-    finalScoreElement.style.display = "block"; // Show final score and restart button
-    document.removeEventListener("click", clickHandler);
-    startButton.style.display = "block"; // Show the start button again
+// Handle user clicks
+function handleClick(number) {
+  if (!userTurn) return;
+
+  boxFlash(number);
+  checkSequence.push(number);
+
+  // Check if the user's input matches the sequence so far
+  if (
+    checkSequence[checkSequence.length - 1] !==
+    sequence[checkSequence.length - 1]
+  ) {
+    gameOver();
+    return;
   }
 
-  // Flash a box when clicked
-  function clickHandler(event) {
-    if (event.target.classList.contains("one")) handleClick(1);
-    if (event.target.classList.contains("two")) handleClick(2);
-    if (event.target.classList.contains("three")) handleClick(3);
-    if (event.target.classList.contains("four")) handleClick(4);
+  // If the user completes the sequence, go to the next level
+  if (checkSequence.length === sequence.length) {
+    setTimeout(nextLevel, 1000);
   }
+}
 
-  // Add event listeners for clicks
-  document.addEventListener("click", clickHandler);
+// End the game
+function gameOver() {
+  running = false;
+  heading.innerHTML = "Game Over!";
+  scoreDisplay.innerHTML = level - 1; // Display the score based on levels
+  finalScoreElement.style.display = "block"; // Show final score and restart button
+  document.removeEventListener("click", clickHandler);
+  startButton.style.display = "block"; // Show the start button again
+}
 
-  // Start the game
-  startGame();
-});
+// Flash a box when clicked
+function clickHandler(event) {
+  if (event.target.classList.contains("one")) handleClick(1);
+  if (event.target.classList.contains("two")) handleClick(2);
+  if (event.target.classList.contains("three")) handleClick(3);
+  if (event.target.classList.contains("four")) handleClick(4);
+}
+
+// Add event listeners for clicks
+document.addEventListener("click", clickHandler);
 
 // Restart button functionality
 restartButton.addEventListener("click", function () {
