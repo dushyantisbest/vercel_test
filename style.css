@@ -94,6 +94,27 @@ h3 {
   background-color: #666;
 }
 
+/* Start button styling */
+#startButton {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #444;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+#startButton:hover {
+  background-color: #666;
+}
+
+#startButton:active {
+  transform: scale(0.98);
+}
+
 /* Responsive styling */
 @media (max-width: 768px) {
   #outerBox {

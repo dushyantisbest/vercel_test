@@ -8,6 +8,19 @@ four = document.querySelector(".four");
 let finalScoreElement = document.querySelector("#finalScore");
 let scoreDisplay = document.querySelector("#scoreDisplay");
 let restartButton = document.querySelector("#restartButton");
+let startButton = document.querySelector("#startButton");
+
+// Start the game when the button is clicked
+startButton.addEventListener("click", function () {
+  startButton.style.display = "none"; // Hide the start button
+  startGame();
+});
+
+// Start the game when a key is pressed (for desktop users)
+document.addEventListener("keydown", function () {
+  startButton.style.display = "none"; // Hide the start button
+  startGame();
+});
 
 // get the key press to start the game
 
@@ -87,6 +100,7 @@ document.addEventListener("keydown", function () {
     scoreDisplay.innerHTML = level - 1; // Display the score based on levels
     finalScoreElement.style.display = "block"; // Show final score and restart button
     document.removeEventListener("click", clickHandler);
+    startButton.style.display = "block"; // Show the start button again
   }
 
   // Flash a box when clicked
