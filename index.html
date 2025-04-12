@@ -1,40 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMI CALCULATOR</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        
-        <h1>BMI CALCULATOR</h1>
-        <label for="weight">     
-            <p>Weight(kg)</p>
-            <input type="number" id="weight" placeholder="Enter your weight">
-        </label>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simon Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Simon Game</h1>
+    <h3>Press any key to start game</h3>
+    <div id="finalScore" style="display: none">
+      <h3>Game Over! Your Score: <span id="scoreDisplay">0</span></h3>
+      <button id="restartButton">Restart</button>
+    </div>
+    <div id="outerBox">
+      <div class="box one"></div>
+      <div class="box two"></div>
+      <div class="box three"></div>
+      <div class="box four"></div>
+    </div>
 
-        <label for="height">
-            <p>Height(cm)</p>
-            <input type="number" id="height" placeholder="Enter your height">
-        </label>
-        <div id="btn">
-            <button class="button-27">CALCULATE</button>
-        </div>
-        
-        
-        <div class="result">Result</div>
-    </div>
-    <div class="grade">
-        <h2>BMI WEIGHT GRADE</h1>
-        <p>Under weight:Less than 18.5 </p>
-        <p>Healthy weight:Between 18.6 and 24.9</p>
-        <p>Over weight:More than 25</p>
-    </div>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
