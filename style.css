@@ -148,7 +148,7 @@ h3 {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 420px) {
   #outerBox {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
